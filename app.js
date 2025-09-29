@@ -15,10 +15,18 @@
     const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
     // Ensure input focus on mobile so keyboard shows
-    if (isMobile) {
-      setTimeout(() => mobileInput.focus(), 400);
-      game.addEventListener('click', () => mobileInput.focus());
-    }
+   if (isMobile) {
+  setTimeout(() => mobileInput.focus(), 400);
+
+  game.addEventListener('click', () => {
+    mobileInput.focus();
+  });
+
+  // also refocus if it ever blurs
+  mobileInput.addEventListener('blur', () => {
+    setTimeout(() => mobileInput.focus(), 100);
+  });
+}
 
   /* CONFIG */
   const POP_HOLD_MS = 700;            // how long the center letter stays before floating

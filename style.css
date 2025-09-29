@@ -195,11 +195,12 @@
 
 #mobileInput {
   position: absolute;
-  opacity: 0;
-  pointer-events: none;
-  height: 0;
-  width: 0;
-  border: 0;
+  bottom: -40px;   /* push it just below the viewport */
+  left: -9999px;   /* or far to the left */
+  width: 1px;
+  height: 1px;
+  opacity: 0.01;   /* not fully 0, so browser still treats it as visible */
+  border: none;
 }
 
   /* small responsive tweaks */
