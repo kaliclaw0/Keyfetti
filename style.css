@@ -1,0 +1,200 @@
+
+/* ============================
+   Kids Typing — CSS styles
+   ============================ */
+  :root{
+    /* Theme variables (change these to alter look quickly) */
+    --bg: #ffffff;
+    --stage-bg: linear-gradient(180deg,#ffffff 0%, #fbfbff 100%);
+    --text: #222;
+    --doc-bg: rgba(245,245,250,0.8);
+    --font-family: "Baloo 2", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    --pop-shadow: 0 10px 30px rgba(50,50,93,0.08);
+
+    /* Rainbow palette used by JS */
+    --color1: #FF6B6B;
+    --color2: #FFB86B;
+    --color3: #FFD36B;
+    --color4: #8BE56F;
+    --color5: #5EE3D3;
+    --color6: #6BA7FF;
+    --color7: #C07BFF;
+
+    /* sizing */
+    --pop-max: 22vw;      /* used for clamp fallback in JS if needed */
+    --doc-font-size: 20px;
+  }
+
+  /* Page / container */
+  html,body {
+    height:100%;
+    margin:0;
+    background:var(--bg);
+    font-family:var(--font-family);
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  .game {
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    background:var(--stage-bg);
+  }
+
+  /* Confetti canvas sits behind everything */
+  #confetti-canvas {
+    position:fixed;
+    left:0; top:0;
+    width:100%;
+    height:100%;
+    pointer-events:none; /* allow clicks through */
+    z-index:0;
+  }
+
+  /* pop layer (transient big letters) */
+  .pop-layer {
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    pointer-events:none;
+    z-index:5;
+  }
+
+  /* central stage content if you want title or controls */
+  .stage {
+    z-index:2;
+    text-align:center;
+    padding:24px;
+    width:100%;
+    max-width:1100px;
+    box-sizing:border-box;
+  }
+
+  h1 {
+    margin:0 0 8px 0;
+    font-size:clamp(20px,2.6vw,36px);
+    font-weight:800;
+    letter-spacing: -0.02em;
+  }
+  p.lead {
+    margin:0 0 18px 0;
+    opacity:0.85;
+  }
+
+  /* Document area at bottom */
+  .document {
+    position:fixed;
+    bottom:28px;
+    left:50%;
+    transform:translateX(-50%);
+    width:min(1100px, calc(100% - 40px));
+    background:var(--doc-bg);
+    border-radius:12px;
+    padding:14px 18px;
+    box-shadow: 0 6px 24px rgba(10,10,30,0.06);
+    z-index:3;
+    font-size:var(--doc-font-size);
+    line-height:1.5;
+    min-height:56px;
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:2px;
+    overflow:auto;
+  }
+
+  /* permanent document letters */
+  .doc-letter {
+    display:inline-block;
+    font-weight:600;
+    font-size:var(--doc-font-size);
+    transform-origin:left center;
+    opacity:0.95;
+    user-select:none;
+  }
+
+  /* pop-letter (transient) */
+  .pop-letter {
+    position:absolute; /* placed in center by parent .pop-layer centering */
+    font-weight:800;
+    pointer-events:none;
+    will-change:transform, opacity;
+    text-rendering:optimizeLegibility;
+    filter: drop-shadow(var(--pop-shadow));
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    line-height:1;
+    border-radius:14px;
+  }
+
+  /* initial pop animation */
+  @keyframes pop-scale {
+    0%   { transform: scale(0.4) rotate(-8deg); opacity:0; }
+    45%  { transform: scale(1.15) rotate(6deg); opacity:1; }
+    70%  { transform: scale(0.98) rotate(-3deg); }
+    100% { transform: scale(1) rotate(0deg); }
+  }
+  .pop-enter {
+    animation: pop-scale 480ms cubic-bezier(.2,.9,.25,1) both;
+  }
+
+  /* small caret to mimic typing (optional) */
+  .caret {
+    width:10px;
+    height:22px;
+    background:rgba(0,0,0,0.35);
+    margin-left:6px;
+    border-radius:2px;
+    animation: blink 1s steps(1) infinite;
+    align-self:flex-start;
+  }
+  @keyframes blink { 50% { opacity:0 } }
+
+  /* accessibility focus outline for the interactive area */
+  .focus-hint {
+    position:fixed;
+    top:18px;
+    left:18px;
+    background:rgba(0,0,0,0.06);
+    padding:8px 12px;
+    border-radius:999px;
+    font-size:13px;
+    z-index:4;
+  }
+.controls {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.controls button {
+  font-size: 20px;
+  background: rgba(255,255,255,0.85);
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.controls button:hover {
+  background: rgba(255,255,255,1);
+}
+  
+
+  /* small responsive tweaks */
+  @media (max-width:520px){
+    .document { font-size:16px; padding:10px; bottom:14px; }
+  }

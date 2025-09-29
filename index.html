@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Keyfetti Typing</title>
+  <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <!-- canvas-confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- Our CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="game" id="game" tabindex="0" aria-label="Kids typing area — press keys A to Z">
+    <div class="controls">
+        <button id="restartBtn" title="Restart">🔄</button>
+        <button id="toggleBtn" title="Toggle letters/all">🔠</button>
+    </div>
+    <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+    <div class="pop-layer" id="popLayer" aria-hidden="true"></div>
+
+    <main class="stage" role="region" aria-live="polite" id="introStage">
+      <h1>Type letters — watch them pop!</h1>
+      <p class="lead">Press keys A–Z on your keyboard. Letters pop in the middle, burst confetti, then float into the document below.</p>
+      <div style="opacity:0.9;font-size:14px">Tip: click anywhere to ensure the page has focus to the typing area.</div>
+    </main>
+
+    <div class="document" id="document" role="document" aria-live="polite"></div>
+  </div>
+
+  <!-- Our JS -->
+  <script src="app.js"></script>
+</body>
+</html>
