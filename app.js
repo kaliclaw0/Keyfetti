@@ -22,11 +22,26 @@
     mobileInput.focus();
   });
 
+    // Add event listener on the entire body to always focus input on tap
+  document.body.addEventListener('click', () => {
+    mobileInput.focus();
+  });
+
+
   // also refocus if it ever blurs
   mobileInput.addEventListener('blur', () => {
     setTimeout(() => mobileInput.focus(), 100);
   });
 }
+
+  // Listen for visualViewport resize to scroll input into view
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', () => {
+      setTimeout(() => {
+        mobileInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 100);
+    });
+  }
 
   /* CONFIG */
   const POP_HOLD_MS = 700;            // how long the center letter stays before floating
